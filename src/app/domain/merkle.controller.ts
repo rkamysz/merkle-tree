@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { CreateTreeUseCase } from "./create-tree.use-case";
 import { FindNodeUseCase } from "./find-node.use-case";
-import { Result } from "../core/result";
+import { Result } from "../../core/result";
 import { Node } from "./node.entity";
 import { GetTreeSizeUseCase } from "./get-tree-size.use-case";
 

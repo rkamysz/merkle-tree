@@ -1,2 +1,2 @@
 export type UnknownObject = { [key: string]: unknown };
-export type Query = string | Array<unknown> | UnknownObject;
+export type Query<DocumentType = any> = UnknownObject | Array<DocumentType>;  //string | Array<unknown> | UnknownObject;

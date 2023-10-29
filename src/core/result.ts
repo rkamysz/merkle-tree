@@ -18,7 +18,10 @@ export class Result<ContentType = void, ErrorType = Error> {
    * @private
    * @param data
    */
-  private constructor(data: { content?: ContentType; failure?: Failure<ErrorType> }) {
+  private constructor(data: {
+    content?: ContentType;
+    failure?: Failure<ErrorType>;
+  }) {
     const { content, failure } = data || {};
     if (content !== undefined && content !== null) {
       this.content = content;
@@ -54,7 +57,7 @@ export class Result<ContentType = void, ErrorType = Error> {
    * @static
    * @returns {Result<void>}
    */
-  public static withoutContent(): Result<void> {
+  public static withoutContent<ContentType = null>(): Result<ContentType> {
     return new Result({});
   }
 
@@ -72,7 +75,7 @@ export class Result<ContentType = void, ErrorType = Error> {
       return new Result<null, ErrorType>({ failure });
     }
 
-    if (typeof failure === 'string') {
+    if (typeof failure === "string") {
       return new Result<null, ErrorType>({
         failure: Failure.withMessage(failure) as Failure<ErrorType>,
       });

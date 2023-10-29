@@ -8,20 +8,34 @@ export type NodeJson = {
 };
 
 export class Node extends Entity<NodeJson> {
+  public static createLeafNode(index: number, depth: number, value: string) {
+    return new Node(index, depth, value, true);
+  }
+
+  public static createIntermediateNode(
+    index: number,
+    depth: number,
+    left: string,
+    right: string
+  ) {
+    return new Node(index, depth, Node.hash(`${left}-${right}`), false);
+  }
+
   public static hash(data: string): string {
     return sha3_256(data);
   }
 
-  constructor(
+  protected constructor(
     public readonly index: number,
     public readonly depth: number,
-    public readonly value: string
+    public readonly value: string,
+    public readonly isLeaf: boolean
   ) {
     super();
   }
 
   public toJSON() {
-    const { index, depth, value } = this;
-    return { index, depth, value };
+    const { index, depth, value, isLeaf } = this;
+    return { index, depth, value, isLeaf };
   }
 }

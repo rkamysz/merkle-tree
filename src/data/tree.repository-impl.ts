@@ -1,24 +1,19 @@
 import { DataSource } from "../core/data.source";
 import { Mapper } from "../core/mapper";
 import { Result } from "../core/result";
-import { MerkleRepository } from "../domain/merkle.repository";
+import { TreeRepository } from "../domain/tree.repository";
 import { Node } from "../domain/node.entity";
 
-export class MerkleRepositoryImpl<DocumentType> implements MerkleRepository {
+export class TreeRepositoryImpl<DocumentType> implements TreeRepository {
   constructor(
     private source: DataSource<DocumentType>,
     private mapper: Mapper<Node, DocumentType>
   ) {}
 
-  public extend(
-    index: number,
-    level: string[]
-  ): Promise<Result<boolean, Error>> {
-    throw new Error("Method not implemented.");
-  }
-
-  public async create(size: number): Promise<Result<boolean>> {
+  public async create(...nodes: Node[]): Promise<Result<boolean>> {
     try {
+      const documents = nodes.map(this.mapper.fromEntity);
+      await this.source.insert(documents);
       return Result.withContent(true);
     } catch (error) {
       return Result.withFailure(error);
@@ -27,7 +22,10 @@ export class MerkleRepositoryImpl<DocumentType> implements MerkleRepository {
 
   public async find(index: number): Promise<Result<Node>> {
     try {
-      return Result.withContent(new Node(0, 0, ""));
+      const documents = await this.source.find({ index });
+      return documents.length > 0
+        ? Result.withContent(this.mapper.toEntity(documents[0]))
+        : Result.withoutContent();
     } catch (error) {
       return Result.withFailure(error);
     }

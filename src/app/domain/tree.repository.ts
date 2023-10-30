@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { Result } from "../../core/result";
+import { Result } from "../../core";
 import { Node } from "./node.entity";
 
 @injectable()

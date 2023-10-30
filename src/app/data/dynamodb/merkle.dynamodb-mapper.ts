@@ -1,4 +1,4 @@
-import { Mapper } from "../../../core/mapper";
+import { Mapper } from "../../../core";
 import { Node } from "../../domain/node.entity";
 import { MerkleTreeNode } from "./merkle.dynamodb-source";
 

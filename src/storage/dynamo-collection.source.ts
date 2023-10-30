@@ -1,7 +1,6 @@
 import AWS from "aws-sdk";
 import { GlobalSecondaryIndex } from "aws-sdk/clients/dynamodb";
-import { DataSource } from "../core/data.source";
-import { Query } from "../core/types";
+import { DataSource, Query } from "../core";
 import { nanoid } from "nanoid";
 import { DynamoSource } from "./dynamo.source";
 

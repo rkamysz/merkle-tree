@@ -1,5 +1,5 @@
 import { sha3_256 } from "js-sha3";
-import { Entity } from "../../core/entity";
+import { Entity } from "../../core";
 
 export type NodeJson = {
   index: number;

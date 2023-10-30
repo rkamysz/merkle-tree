@@ -1,6 +1,5 @@
 import { inject, injectable } from "inversify";
-import { Result } from "../../core/result";
-import { UseCase } from "../../core/use-case";
+import { Result, UseCase } from "../../core";
 import { TreeRepository } from "./tree.repository";
 
 @injectable()

@@ -1,4 +1,4 @@
-import { DynamoCollectionSource, DynamoSource } from "../../../dynamodb-source";
+import { DynamoCollectionSource, DynamoSource } from "../../../storage";
 
 export type MerkleTreeNode = {
   index: number;

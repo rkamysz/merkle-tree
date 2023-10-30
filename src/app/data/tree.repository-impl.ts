@@ -1,6 +1,4 @@
-import { DataSource } from "../../core/data.source";
-import { Mapper } from "../../core/mapper";
-import { Result } from "../../core/result";
+import { Result, Mapper, DataSource } from "../../core";
 import { TreeRepository } from "../domain/tree.repository";
 import { Node } from "../domain/node.entity";
 

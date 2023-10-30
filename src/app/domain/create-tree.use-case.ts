@@ -1,6 +1,5 @@
 import { inject, injectable } from "inversify";
-import { Result } from "../../core/result";
-import { UseCase } from "../../core/use-case";
+import { Result, UseCase } from "../../core";
 import { TreeRepository } from "./tree.repository";
 import { Node } from "./node.entity";
 
@@ -12,10 +11,7 @@ export class CreateTreeUseCase implements UseCase<boolean> {
     @inject(TreeRepository.TOKEN) private repository: TreeRepository
   ) {}
 
-  public async execute(size: number): Promise<Result<boolean, Error>> {
-    // Create an array of blocks based on the provided size
-    const blocks = Array.from({ length: size }, (_, index) => `Block${index}`);
-
+  public async execute(blocks: string[]): Promise<Result<boolean, Error>> {
     // Calculate the total depth of the Merkle tree based on the number of blocks
     const totalDepths = Math.ceil(Math.log2(blocks.length)) + 1;
 

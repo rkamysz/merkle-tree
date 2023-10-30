@@ -55,7 +55,7 @@ Although I use MongoDB on a daily basis, I chose DynamoDB for this project due t
 ## Used Resources
 
 - Merkle Tree: [Merkle Tree: A Beginners Guide](https://kba.ai/merkle-tree-a-beginners-guide/)
-- [https://www.mermaidchart.com/app/projects/b780ec3a-82fd-4124-9aac-d9a3f92f0acc/diagrams/60cf4c6e-48f6-4d48-b83b-efcf38cbcb30/version/v0.1/view](Chart)
+- [Chart](https://www.mermaidchart.com/app/projects/b780ec3a-82fd-4124-9aac-d9a3f92f0acc/diagrams/60cf4c6e-48f6-4d48-b83b-efcf38cbcb30/version/v0.1/view)
 - AWS Documentation
 - Experience drawn from my daily work
 

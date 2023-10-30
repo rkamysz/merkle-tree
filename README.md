@@ -55,7 +55,7 @@ Although I use MongoDB on a daily basis, I chose DynamoDB for this project due t
 ## Used Resources
 
 - Merkle Tree: [Merkle Tree: A Beginners Guide](https://kba.ai/merkle-tree-a-beginners-guide/)
-- Chart [https://www.mermaidchart.com/app/projects/b780ec3a-82fd-4124-9aac-d9a3f92f0acc/diagrams/60cf4c6e-48f6-4d48-b83b-efcf38cbcb30/version/v0.1/view]
+- [https://www.mermaidchart.com/app/projects/b780ec3a-82fd-4124-9aac-d9a3f92f0acc/diagrams/60cf4c6e-48f6-4d48-b83b-efcf38cbcb30/version/v0.1/view](Chart)
 - AWS Documentation
 - Experience drawn from my daily work
 
@@ -66,5 +66,5 @@ Although I use MongoDB on a daily basis, I chose DynamoDB for this project due t
 - Add instructions for launching the application.
 - Add an endpoint for tree removal.
 - Add unit and API tests.
-- Expand the API documentation.
+- Expand the API documentation e.g. Swagger.
 - Implement monitoring, e.g., using Amazon CloudWatch.

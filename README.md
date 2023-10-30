@@ -6,6 +6,15 @@ This repository was specifically created for recruitment purposes. The solution 
 
 WIP! Currently configuring AWS and all its components. After testing the application, I will add a detailed description of how to launch the API.
 
+```
+
+yarn build
+docker run -p 8000:8000 amazon/dynamodb-local
+sam build
+sam local invoke "MerkleHandlerFunction" -e event.json
+```
+
+
 ## Code Structure
 
 The repository consists of the following folders: `api`, `app`, `core`, and `storage`. This structure suggests a division of the code into npm packages, which I would apply in a full-fledged project. The goal is to improve scalability, reduce code duplication, and allow integration with various sources in the future.

@@ -1,5 +1,8 @@
 import "reflect-metadata";
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 import * as CDK from "@aws-cdk/core";
 import * as ApiGateway from "@aws-cdk/aws-apigateway";
 import * as NodeJSLambda from "@aws-cdk/aws-lambda-nodejs";
@@ -25,7 +28,7 @@ export class MerkleApiStack extends CDK.Stack {
 
     // Define the Lambda function
     const lambda = new NodeJSLambda.NodejsFunction(this, "MerkleHandler", {
-      entry: "./merkle.handler.ts",
+      entry: "./merkle.js",
       handler: "merkleHandler",
     });
 
@@ -43,5 +46,10 @@ export class MerkleApiStack extends CDK.Stack {
     const getNode = api.root.addResource("node");
     const getNodeIntegration = new ApiGateway.LambdaIntegration(lambda);
     getNode.addMethod("GET", getNodeIntegration);
+
+    new CDK.CfnOutput(this, "MerkleApiEndpoint", {
+      value: "API.URL",
+      description: "The URL endpoint of the Merkle API",
+    });
   }
 }

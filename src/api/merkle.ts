@@ -1,3 +1,6 @@
+import "reflect-metadata";
+
+import { APIGatewayProxyEvent } from "aws-lambda";
 import { MerkleController, setup } from "../app";
 import { CreateMerkleRouteIO, GetNodeRouteIO } from "./merkle.route-io";
 
@@ -12,7 +15,7 @@ import { CreateMerkleRouteIO, GetNodeRouteIO } from "./merkle.route-io";
  * @param {any} event - The AWS Lambda event object containing request details.
  * @returns {Promise<{statusCode: number, body: string}>} - The HTTP status code and body message.
  */
-export const merkleHandler = async (event: any) => {
+export const merkleHandler = async (event: APIGatewayProxyEvent) => {
   const container = await setup({});
 
   const controller: MerkleController = container.get<MerkleController>(

@@ -16,8 +16,15 @@ import { DynamoSourceProvider } from "../storage";
 
 export const setup = async (config: any) => {
   const container = new Container();
-  const source = DynamoSourceProvider.create(config);
+
+  const dynamoConfig: AWS.DynamoDB.ClientConfiguration = {
+    region: process.env.REGION || "eu-central-1",
+    endpoint: process.env.DATABASE_URL || "http://localhost:8000",
+  };
+
+  const source = DynamoSourceProvider.create(dynamoConfig);
   const merkleSource = new MerkleDynamoDbSource(source);
+  await merkleSource.init();
   const merkleMapper = new MerkleDynamoDbMapper();
   const repository = new TreeRepositoryImpl(merkleSource, merkleMapper);
 

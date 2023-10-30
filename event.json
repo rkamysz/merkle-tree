@@ -1,0 +1,14 @@
+{
+  "resource": "/create/{size}",
+  "path": "/create/14",
+  "httpMethod": "POST",
+  "headers": {},
+  "multiValueHeaders": {},
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": {
+    "size": "14"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

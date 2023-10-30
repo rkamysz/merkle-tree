@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An example SAM template for the Merkle tree API
+
+Resources:
+  MerkleHandlerFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      Handler: build/api/merkle.merkleHandler
+      Runtime: nodejs14.x
+      Timeout: 10
+      Events:
+        CreateTree:
+          Type: Api 
+          Properties:
+            Path: /create/{size}
+            Method: post
+        GetNode:
+          Type: Api 
+          Properties:
+            Path: /node/{index}
+            Method: get

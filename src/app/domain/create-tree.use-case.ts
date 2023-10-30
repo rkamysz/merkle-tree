@@ -11,7 +11,7 @@ export class CreateTreeUseCase implements UseCase<boolean> {
     @inject(TreeRepository.TOKEN) private repository: TreeRepository
   ) {}
 
-  public async execute(blocks: string[]): Promise<Result<boolean, Error>> {
+  public buildTree(blocks: string[]): Node[] {
     // Calculate the total depth of the Merkle tree based on the number of blocks
     const totalDepths = Math.ceil(Math.log2(blocks.length)) + 1;
 
@@ -82,8 +82,11 @@ export class CreateTreeUseCase implements UseCase<boolean> {
     }
 
     // Flatten the 2D array into a 1D array of nodes
-    const nodes = nodesBylevels.flat(2);
+    return nodesBylevels.flat(2);
+  }
 
+  public async execute(blocks: string[]): Promise<Result<boolean, Error>> {
+    const nodes = this.buildTree(blocks);
     // Call the repository's create method to store the nodes
     return this.repository.create(...nodes);
   }

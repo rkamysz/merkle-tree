@@ -26,12 +26,10 @@ export class DynamoSourceProvider {
    * @param {string} config.region - The AWS region where the DynamoDB service is hosted.
    * @returns {DynamoSource} An object containing the DynamoDB DocumentClient and service.
    */
-  public static create(config: { region: string }): DynamoSource {
-    const { region } = config;
-
+  public static create(config: AWS.DynamoDB.ClientConfiguration): DynamoSource {
     return {
-      client: new AWS.DynamoDB.DocumentClient({ region }),
-      service: new AWS.DynamoDB(),
+      client: new AWS.DynamoDB.DocumentClient(config),
+      service: new AWS.DynamoDB(config),
     };
   }
 }

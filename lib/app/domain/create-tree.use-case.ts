@@ -73,9 +73,9 @@ export class CreateTreeUseCase implements UseCase<boolean> {
     for (let i = 0; i < blocks.length; i++) {
       nodesBylevels[totalDepths - 1].push(
         Node.createLeafNode(
-          i,
-          totalDepths - 1,
           2 * totalDepths - 1 + i,
+          totalDepths - 1,
+          i,
           blocks[i]
         )
       );

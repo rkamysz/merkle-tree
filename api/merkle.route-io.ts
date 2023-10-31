@@ -1,5 +1,5 @@
-import { CreateTreeInput, GetNodeInput, Node } from "../app";
-import { Result } from "../core";
+import { CreateTreeInput, GetNodeInput, Node } from "../lib/app";
+import { Result } from "../lib/core";
 
 /**
  * A helper class to extract the necessary information from the request object

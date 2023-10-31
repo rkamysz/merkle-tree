@@ -2,7 +2,7 @@
   "name": "merkle-tree",
   "version": "0.0.0",
   "description": "",
-  "main": "build/index.js",
+  "main": "build/api/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rkamysz/merkle-tree.git"
@@ -11,7 +11,11 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf ./build",
-    "build": "yarn clean && tsc"
+    "build": "yarn clean && tsc",
+    "test:unit": "jest --config=jest.config.unit.js",
+    "synth": "cdk synth",
+    "start": "sam local start-api -t ./cdk.out/MerkleApiEndpoint.template.json",
+    "debug": "sam local start-api -t ./cdk.out/MerkleApiEndpoint.template.json --debug"
   },
   "dependencies": {
     "@aws-cdk/aws-apigateway": "^1.204.0",
@@ -21,6 +25,7 @@
     "aws-cdk": "^2.103.1",
     "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1483.0",
+    "dotenv": "^16.3.1",
     "inversify": "^6.0.1",
     "jest": "^29.7.0",
     "js-sha3": "^0.9.2",

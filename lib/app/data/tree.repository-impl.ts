@@ -11,6 +11,7 @@ export class TreeRepositoryImpl<DocumentType> implements TreeRepository {
   public async create(...nodes: Node[]): Promise<Result<boolean>> {
     try {
       const documents = nodes.map(this.mapper.fromEntity);
+
       await this.source.insert(documents);
       return Result.withContent(true);
     } catch (error) {
@@ -20,7 +21,7 @@ export class TreeRepositoryImpl<DocumentType> implements TreeRepository {
 
   public async find(index: number): Promise<Result<Node>> {
     try {
-      const documents = await this.source.find({ index });
+      const documents = await this.source.find({ index: index.toString() });
       return documents.length > 0
         ? Result.withContent(this.mapper.toEntity(documents[0]))
         : Result.withoutContent();

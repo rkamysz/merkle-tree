@@ -41,13 +41,14 @@ export class Node extends Entity<NodeJson> {
     public readonly depth: number,
     public readonly offset: number,
     public readonly value: string,
-    public readonly isLeaf: boolean
+    public readonly isLeaf: boolean,
+    public readonly id?: string
   ) {
     super();
   }
 
   public toJSON() {
-    const { index, depth, value, isLeaf, offset } = this;
-    return { index, depth, offset, value, isLeaf };
+    const { index, depth, value, isLeaf, offset, id } = this;
+    return { index, depth, offset, value, isLeaf, id };
   }
 }

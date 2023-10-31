@@ -7,6 +7,6 @@ module.exports = {
   testEnvironment: 'jest-environment-node',
   testMatch: ['**/__tests__/**/*.unit.test.ts'],
   collectCoverageFrom: [
-    'src/**/*.ts',
+    'lib/**/*.ts',
   ],
 };

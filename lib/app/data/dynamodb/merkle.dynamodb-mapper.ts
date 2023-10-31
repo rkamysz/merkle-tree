@@ -16,8 +16,8 @@ export class MerkleDynamoDbMapper implements Mapper<Node, MerkleTreeNode> {
    * @returns {Node} - The resulting `Node` entity.
    */
   public toEntity(model: MerkleTreeNode): Node {
-    const { index, depth, value, isLeaf, offset } = model;
-    return new Node(index, depth, offset, value, isLeaf);
+    const { index, depth, value, isLeaf, offset, id } = model;
+    return new Node(+index, depth, offset, value, isLeaf, id);
   }
 
   /**
@@ -27,10 +27,11 @@ export class MerkleDynamoDbMapper implements Mapper<Node, MerkleTreeNode> {
    * @returns {MerkleTreeNode} - The resulting DynamoDB model.
    */
   public fromEntity(entity: Node): MerkleTreeNode {
-    const { index, depth, offset, value, isLeaf } = entity;
+    const { index, depth, offset, value, isLeaf, id } = entity;
 
     return {
-      index,
+      id,
+      index: index.toString(),
       depth,
       offset,
       value,

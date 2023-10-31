@@ -1,8 +1,16 @@
 import "reflect-metadata";
 
+import path from "path";
+import * as dotenv from "dotenv";
+
+dotenv.config({ path: path.join(process.cwd(), ".env") });
+
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { MerkleController, setup } from "../app";
+import { MerkleController, setup } from "../lib/app";
 import { CreateMerkleRouteIO, GetNodeRouteIO } from "./merkle.route-io";
+import { validateEnvVariables } from "./utils";
+
+validateEnvVariables();
 
 /**
  * AWS Lambda handler to process requests for Merkle tree operations.
@@ -16,7 +24,13 @@ import { CreateMerkleRouteIO, GetNodeRouteIO } from "./merkle.route-io";
  * @returns {Promise<{statusCode: number, body: string}>} - The HTTP status code and body message.
  */
 export const merkleHandler = async (event: APIGatewayProxyEvent) => {
-  const container = await setup({});
+  
+  const container = await setup({
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    region: process.env.REGION,
+    endpoint: process.env.DATABASE_URL,
+  });
 
   const controller: MerkleController = container.get<MerkleController>(
     MerkleController.TOKEN

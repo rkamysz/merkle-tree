@@ -1,8 +1,5 @@
 import "reflect-metadata";
 
-const dotenv = require("dotenv");
-dotenv.config();
-
 import * as CDK from "@aws-cdk/core";
 import * as ApiGateway from "@aws-cdk/aws-apigateway";
 import * as NodeJSLambda from "@aws-cdk/aws-lambda-nodejs";
@@ -28,7 +25,7 @@ export class MerkleApiStack extends CDK.Stack {
 
     // Define the Lambda function
     const lambda = new NodeJSLambda.NodejsFunction(this, "MerkleHandler", {
-      entry: "./merkle.js",
+      entry: "./api/merkle.ts",
       handler: "merkleHandler",
     });
 
@@ -38,18 +35,16 @@ export class MerkleApiStack extends CDK.Stack {
       description: "API for Merkle Tree operations.",
     });
 
-    // Connect the Lambda function to the API Gateway
-    const createMerkleTree = api.root.addResource("create");
-    const createMerkleIntegration = new ApiGateway.LambdaIntegration(lambda);
-    createMerkleTree.addMethod("POST", createMerkleIntegration);
+    // Define the resource for "create"
+    const createResource = api.root.addResource("create");
+    const sizeResource = createResource.addResource("{size}");
+    const sizeIntegration = new ApiGateway.LambdaIntegration(lambda);
+    sizeResource.addMethod("POST", sizeIntegration);
 
-    const getNode = api.root.addResource("node");
-    const getNodeIntegration = new ApiGateway.LambdaIntegration(lambda);
-    getNode.addMethod("GET", getNodeIntegration);
-
-    new CDK.CfnOutput(this, "MerkleApiEndpoint", {
-      value: "API.URL",
-      description: "The URL endpoint of the Merkle API",
-    });
+    // Define the resource for "node"
+    const nodeResource = api.root.addResource("node");
+    const indexResource = nodeResource.addResource("{index}");
+    const indexIntegration = new ApiGateway.LambdaIntegration(lambda);
+    indexResource.addMethod("GET", indexIntegration);
   }
 }

@@ -10,9 +10,10 @@
     "emitDecoratorMetadata": true,
     "outDir": "build",
   },
-  "include": ["src/**/*"],
+  "include": ["lib/**/*", "api/**/*"],
   "exclude": [
     "node_modules",
-    "build"
+    "cdk.out",
+    "build",
   ]
 }

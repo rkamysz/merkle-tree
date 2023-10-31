@@ -14,15 +14,15 @@ import {
 } from "./data";
 import { DynamoSourceProvider } from "../storage";
 
-export const setup = async (config: any) => {
+export const setup = async (config: {
+  region: string;
+  endpoint: string;
+  accessKeyId?: string;
+  secretAccessKey?: string;
+}) => {
   const container = new Container();
 
-  const dynamoConfig: AWS.DynamoDB.ClientConfiguration = {
-    region: process.env.REGION || "eu-central-1",
-    endpoint: process.env.DATABASE_URL || "http://localhost:8000",
-  };
-
-  const source = DynamoSourceProvider.create(dynamoConfig);
+  const source = DynamoSourceProvider.create(config);
   const merkleSource = new MerkleDynamoDbSource(source);
   await merkleSource.init();
   const merkleMapper = new MerkleDynamoDbMapper();

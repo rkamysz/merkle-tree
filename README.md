@@ -4,20 +4,32 @@ This repository was specifically created for recruitment purposes. The solution 
 
 ## How to Run
 
-WIP! Currently configuring AWS and all its components. After testing the application, I will add a detailed description of how to launch the API.
+```bash
 
-```
-
-yarn build
+# run dynamodb-local
 docker run -p 8000:8000 amazon/dynamodb-local
-sam build
-sam local invoke "MerkleHandlerFunction" -e event.json
+
+# fill in the variables in the env.example file (if you will use a local database, also set database_url)
+# move .env.example to ./cdk.out/asset...../.env # or just rename it to .env
+
+# build and run api
+1. yarn build
+2. yarn synth
+3. yarn start # if you are using .env from ./cdk.out/asset.... folder
+# or
+3. sam local start-api # if you are using .env from root folder
 ```
 
+In the postman directory you will find api and environment jsons that can be imported or you can use curl:
+
+```bash
+curl --location --request POST '127.0.0.1:3000/create/8'
+curl --location '127.0.0.1:3000/node/5'
+```
 
 ## Code Structure
 
-The repository consists of the following folders: `api`, `app`, `core`, and `storage`. This structure suggests a division of the code into npm packages, which I would apply in a full-fledged project. The goal is to improve scalability, reduce code duplication, and allow integration with various sources in the future.
+The repository consists of the following folders: `api` and `lib` and inside `app`, `core`, and `storage`. This structure suggests a division of the code into npm packages, which I would apply in a full-fledged project. The goal is to improve scalability, reduce code duplication, and allow integration with various sources in the future.
 
 - **core**: Contains basic elements and interfaces used in all the framework's modules.
   
@@ -59,20 +71,20 @@ Although I use MongoDB on a daily basis, I chose DynamoDB for this project due t
 
 - Implementing the Merkle tree was a new experience for me.
 
-- Configuring the application in AWS is challenging, but also a valuable experience.
+- Configuring the application in AWS is challenging, but also a valuable experience. ***(Update)*** Yes, it was challenging, setting all the configurations by trial and error (chatGPT turned out to be helpful). Currently, there is still a problem with envs, which you probably saw in the instructions on how to run the API. The good thing is that in a stress-free moment, learning how to use and set up AWS resources is not a problem.
+
+- I also changed the file structure if you've seen the earlier one and it makes more sense now as the API is separated from libs
 
 ## Used Resources
 
 - Merkle Tree: [Merkle Tree: A Beginners Guide](https://kba.ai/merkle-tree-a-beginners-guide/)
 - [Chart](https://www.mermaidchart.com/app/projects/b780ec3a-82fd-4124-9aac-d9a3f92f0acc/diagrams/60cf4c6e-48f6-4d48-b83b-efcf38cbcb30/version/v0.1/view)
-- AWS Documentation
+- AWS Documentation and ChatGPT
 - Experience drawn from my daily work
 
 ## ToDo
 
-- Configure AWS.
 - Test the code's operation.
-- Add instructions for launching the application.
 - Add an endpoint for tree removal.
 - Add unit and API tests.
 - Expand the API documentation e.g. Swagger.

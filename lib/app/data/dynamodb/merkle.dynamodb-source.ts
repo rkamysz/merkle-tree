@@ -1,7 +1,8 @@
 import { DynamoCollectionSource, DynamoSource } from "../../../storage";
 
 export type MerkleTreeNode = {
-  index: number;
+  id: string;
+  index: string;
   offset: number;
   depth: number;
   value: string;

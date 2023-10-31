@@ -8,7 +8,7 @@ Resources:
     Properties:
       Handler: build/api/merkle.merkleHandler
       Runtime: nodejs14.x
-      Timeout: 10
+      Timeout: 30
       Events:
         CreateTree:
           Type: Api 

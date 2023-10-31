@@ -29,6 +29,35 @@ export class DynamoCollectionSource<DocumentType>
     protected source: DynamoSource
   ) {}
 
+  /**
+   * Polls DynamoDB to check if a table is in the 'ACTIVE' state.
+   * Waits for a specified duration and number of retries.
+   *
+   * @param {number} [retryCount=10] - The number of times to retry checking the table's status.
+   * @param {number} [delay=5000] - Delay (in milliseconds) between status checks.
+   * @throws Will throw an error if the table is not in 'ACTIVE' state after all retries.
+   * @returns {Promise<void>}
+   */
+  protected async waitToBeActive() {
+    const {
+      source: { service },
+      config,
+    } = this;
+    let retries = 10;
+    while (retries > 0) {
+      const { Table } = await service
+        .describeTable({ TableName: config.tableName })
+        .promise();
+      if (Table && Table.TableStatus === "ACTIVE") {
+        return;
+      }
+      retries--;
+      // Wait for 5 seconds before the next check
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+    throw new Error("DynamoDB table is not in ACTIVE state after waiting.");
+  }
+
   public async init() {
     const {
       config,
@@ -62,6 +91,9 @@ export class DynamoCollectionSource<DocumentType>
         });
       });
     }
+
+    let tableCreated = false;
+
     // Create the DynamoDB table
     await service
       .createTable({
@@ -76,11 +108,16 @@ export class DynamoCollectionSource<DocumentType>
       })
       .promise()
       .then((data) => {
+        tableCreated = true;
         console.log("Table created:", data);
       })
       .catch((err) => {
         console.error("Error creating table:", err);
       });
+
+    if (tableCreated) {
+      await this.waitToBeActive();
+    }
   }
 
   public get collectionName(): string {
@@ -131,6 +168,7 @@ export class DynamoCollectionSource<DocumentType>
     };
 
     const result = await client.query(params).promise();
+
     return (result.Items as DocumentType[]) || [];
   }
 

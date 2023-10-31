@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "c474e3e9-d3a2-4279-bf36-0ec568694d42",
+		"name": "MerkleTree",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8044281"
+	},
+	"item": [
+		{
+			"name": "Create tree",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/create/:size",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"create",
+						":size"
+					],
+					"variable": [
+						{
+							"key": "size",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get node by index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/node/:index",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"node",
+						":index"
+					],
+					"variable": [
+						{
+							"key": "index",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
